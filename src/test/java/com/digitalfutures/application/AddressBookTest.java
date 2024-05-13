@@ -10,7 +10,7 @@ public class AddressBookTest {
 
         String validName = "Test Name";
         String validPhoneNumber = "07000000000";
-        String validEmail = "email@email.com"
+        String validEmail = "email@email.com";
 
         @Nested
         @DisplayName("Add Contact Tests")
@@ -40,6 +40,6 @@ public class AddressBookTest {
                 // Assert
                 assertEquals(expected, addressBook.getContactList().size());
             }
-
         }
 }
+

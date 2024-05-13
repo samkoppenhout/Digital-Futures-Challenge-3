@@ -17,8 +17,8 @@ public class Contact {
     }
 
     public Contact(String name, String phoneNumber, String email){
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.name = DataValidator.checkName(name);
+        this.phoneNumber = DataValidator.checkPhoneNumber(phoneNumber);
         this.email = email;
     }
 }
