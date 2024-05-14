@@ -12,4 +12,10 @@ public class AddressBook {
     public void addContact(Contact contact) {
         this.contactList.add(contact);
     }
+
+    public void removeContact(Contact contact) {
+        if (this.contactList.contains(contact)) {
+            this.contactList.remove(contact);
+        } else throw new IllegalArgumentException("Contact not in address book.");
+    }
 }

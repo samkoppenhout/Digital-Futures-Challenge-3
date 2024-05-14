@@ -41,5 +41,46 @@ public class AddressBookTest {
                 assertEquals(expected, addressBook.getContactList().size());
             }
         }
+
+    @Nested
+    @DisplayName("Remove Contact Tests")
+    class removeContactTests {
+        private AddressBook addressBook = new AddressBook();
+
+        @Test
+        @DisplayName("Number of contacts decreases when removeContact is called")
+        void testNumberOfContactsDecreases() {
+            // Arrange
+            Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
+            addressBook.addContact(testContact);
+            int expected = addressBook.getContactList().size() - 1;
+            // Act
+            addressBook.removeContact(testContact);
+            // Assert
+            assertEquals(expected, addressBook.getContactList().size());
+        }
+
+        @Test
+        @DisplayName("Test that the contacts list does not include the given test contact")
+        void testContactsListDoesNotIncludeGivenContact() {
+            // Arrange
+            Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
+            addressBook.addContact(testContact);
+            // Act
+            addressBook.removeContact(testContact);
+            // Assert
+            assertFalse(addressBook.getContactList().contains(testContact));
+        }
+
+        @Test
+        @DisplayName("removeContact() throws an error if contacts list does not contain the given contact")
+        void cannotRemoveContactThatIsNotPresent() {
+            // Arrange
+            Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
+            // Act
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> addressBook.removeContact(testContact));
+        }
+    }
 }
 

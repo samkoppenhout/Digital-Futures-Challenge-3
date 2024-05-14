@@ -22,7 +22,7 @@ public class DataValidator {
         Matcher matcher = emailPattern.matcher(email);
         if (matcher.matches()) {
             return email;
-        } else { throw new IllegalArgumentException("Phone Number Invalid"); }
+        } else { throw new IllegalArgumentException("Email Invalid"); }
     }
 
     static String checkName(String name) {

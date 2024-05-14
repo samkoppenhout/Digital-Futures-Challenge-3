@@ -11,7 +11,6 @@ public class Contact {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public String getEmail() {
         return email;
     }
@@ -19,6 +18,6 @@ public class Contact {
     public Contact(String name, String phoneNumber, String email){
         this.name = DataValidator.checkName(name);
         this.phoneNumber = DataValidator.checkPhoneNumber(phoneNumber);
-        this.email = email;
+        this.email = DataValidator.checkEmail(email);
     }
 }
