@@ -1,6 +1,16 @@
 package com.digitalfutures.application;
 
 public class Contact {
+    public void setName(String name) {
+        this.name = DataValidator.checkName(name);
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = DataValidator.checkPhoneNumber(phoneNumber);
+    }
+    public void setEmail(String email) {
+        this.email = DataValidator.checkEmail(email);
+    }
+
     protected String name;
     protected String phoneNumber;
     protected String email;

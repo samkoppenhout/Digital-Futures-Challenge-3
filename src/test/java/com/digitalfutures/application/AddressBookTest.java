@@ -1,51 +1,54 @@
 package com.digitalfutures.application;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddressBookTest {
 
-        String validName = "Test Name";
-        String validPhoneNumber = "07000000000";
-        String validEmail = "email@email.com";
+    String validName = "Test Name";
+    String validPhoneNumber = "07000000000";
+    String validEmail = "email@email.com";
 
-        @Nested
-        @DisplayName("Add Contact Tests")
-        class addContactTests {
-            private AddressBook addressBook = new AddressBook();
+    @Nested
+    @DisplayName("Add Contact Tests")
+    class addContactTests {
+        private final AddressBook addressBook = new AddressBook();
 
-            @Test
-            @DisplayName("Number of contacts increases when addContact is called")
-            void testNumberOfContactsIncreases() {
-                // Arrange
-                Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
-                int expected = addressBook.getContactList().size() + 1;
-                // Act
-                addressBook.addContact(testContact);
-                // Assert
-                assertEquals(expected, addressBook.getContactList().size());
-            }
-
-            @Test
-            @DisplayName("Test that the contacts list includes the given test contact")
-            void testContactsListIncludesGivenContact() {
-                // Arrange
-                Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
-                int expected = addressBook.getContactList().size() + 1;
-                // Act
-                addressBook.addContact(testContact);
-                // Assert
-                assertEquals(expected, addressBook.getContactList().size());
-            }
+        @Test
+        @DisplayName("Number of contacts increases when addContact is called")
+        void testNumberOfContactsIncreases() {
+            // Arrange
+            Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
+            int expected = addressBook.getContactList().size() + 1;
+            // Act
+            addressBook.addContact(testContact);
+            // Assert
+            assertEquals(expected, addressBook.getContactList().size());
         }
+
+        @Test
+        @DisplayName("Test that the contacts list includes the given test contact")
+        void testContactsListIncludesGivenContact() {
+            // Arrange
+            Contact testContact = new Contact(validName, validPhoneNumber, validEmail);
+            int expected = addressBook.getContactList().size() + 1;
+            // Act
+            addressBook.addContact(testContact);
+            // Assert
+            assertEquals(expected, addressBook.getContactList().size());
+        }
+    }
 
     @Nested
     @DisplayName("Remove Contact Tests")
     class removeContactTests {
-        private AddressBook addressBook = new AddressBook();
+        private final AddressBook addressBook = new AddressBook();
 
         @Test
         @DisplayName("Number of contacts decreases when removeContact is called")
@@ -80,6 +83,173 @@ public class AddressBookTest {
             // Act
             // Assert
             assertThrows(IllegalArgumentException.class, () -> addressBook.removeContact(testContact));
+        }
+    }
+
+    @Nested
+    @DisplayName("Search By Name Tests")
+    class searchByNameTests {
+        private static AddressBook addressBook = new AddressBook();
+        private static final Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+        private static final Contact testContact2 = new Contact("Jesse Pinkman", "07111111111", "jpemail@hotmail.co.uk");
+        private static final Contact testContact3 = new Contact("Skyler White", "07222222222", "newmail@gmail.com");
+
+        @BeforeAll
+        static void beforeAll() {
+            addressBook = new AddressBook();
+            addressBook.addContact(testContact1);
+            addressBook.addContact(testContact2);
+            addressBook.addContact(testContact3);
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts includes a contact with the requested term")
+        void testContactIsReturned() {
+            // Arrange
+            // Act
+            // Assert
+            assertTrue(addressBook.search("Walter").contains(testContact1));
+        }
+
+        @Test
+        @DisplayName("Check that an error is thrown if the term does not match any statements")
+        void errorThrownOnNoResults() {
+            // Arrange
+            // Act
+            // Assert
+            assertThrows(NoSuchElementException.class, () -> addressBook.search("Hank").contains(testContact1));
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts includes a contact with the requested term if cases are different")
+        void testContactIsReturnedCaseInsensitive() {
+            // Arrange
+            // Act
+            // Assert
+            assertTrue(addressBook.search("walter").contains(testContact1));
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts is size 2 if 2 results are expected")
+        void testTwoContactsAreReturned() {
+            // Arrange
+            int expected = 2;
+            // Act
+            // Assert
+            assertEquals(expected, addressBook.search("white").size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Edit Contact Tests")
+    class editContactTests {
+        private static AddressBook addressBook = new AddressBook();
+        private static final Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+        private static final Contact testContact2 = new Contact("Jesse Pinkman", "07111111111", "jpemail@hotmail.co.uk");
+        private static final Contact testContact3 = new Contact("Skyler White", "07222222222", "newmail@gmail.com");
+
+        @BeforeAll
+        static void beforeAll() {
+            addressBook = new AddressBook();
+            addressBook.addContact(testContact1);
+            addressBook.addContact(testContact2);
+            addressBook.addContact(testContact3);
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts does not include the original contact after editing")
+        void testEditChangesContact() {
+            // Arrange
+            // Act
+            addressBook.editContact(testContact1, "Hank Schrader", "07333333333", "hank@police.com");
+            // Assert
+            assertThrows(NoSuchElementException.class, () -> addressBook.search("Walter White"));
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts does include the new contact after editing")
+        void testEditAddsNewContact() {
+            // Arrange
+            int expected = 1;
+            // Act
+            addressBook.editContact(testContact1, "Hank Schrader", "07333333333", "hank@police.com");
+            // Assert
+            assertEquals(expected, addressBook.search("Hank Schrader").size());
+        }
+    }
+    @Nested
+    @DisplayName("Duplicate Tests")
+    class duplicateTests {
+        private static AddressBook addressBook = new AddressBook();
+
+        @BeforeAll
+        static void beforeAll() {
+            addressBook = new AddressBook();
+        }
+
+        @Test
+        @DisplayName("Check that an error is thrown if a duplicate is added")
+        void testDuplicateCausesError() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            Contact testContact2 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            addressBook.addContact(testContact1);
+            // Act
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> addressBook.addContact(testContact2));
+        }
+
+        @Test
+        @DisplayName("Check that an error is thrown if a duplicate phone number is added with different email and name")
+        void testPhoneNumberDuplicateCausesError() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            Contact testContact2 = new Contact("Hank Schrader", "07000000000", "hank@police.com");
+            addressBook.addContact(testContact1);
+            // Act
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> addressBook.addContact(testContact2));
+        }
+
+        @Test
+        @DisplayName("Check that an error is thrown if a duplicate email is added with different phone number and name")
+        void testEmailDuplicateCausesError() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            Contact testContact2 = new Contact("Hank Schrader", "07111111111", "walterwhite@email.com");
+            addressBook.addContact(testContact1);
+            // Act
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> addressBook.addContact(testContact2));
+        }
+
+        @Test
+        @DisplayName("Check that an error is not thrown if a duplicate name is added with different phone number and email")
+        void testNameDuplicateDoesNotCauseError() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            Contact testContact2 = new Contact("Walter White", "07111111111", "hank@police.com");
+            addressBook.addContact(testContact1);
+            // Act
+            // Assert
+            assertDoesNotThrow(() -> addressBook.addContact(testContact2));
+        }
+
+        @Test
+        @DisplayName("Check that an error is not thrown if two entries are not duplicates")
+        void testNonDuplicateDoesNotCauseError() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            Contact testContact2 = new Contact("Hank Schrader", "07111111111", "hank@police.com");
+            addressBook.addContact(testContact1);
+            // Act
+            // Assert
+            assertDoesNotThrow(() -> addressBook.addContact(testContact2));
         }
     }
 }
