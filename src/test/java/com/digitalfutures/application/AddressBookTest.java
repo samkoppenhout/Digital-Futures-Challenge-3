@@ -252,5 +252,49 @@ public class AddressBookTest {
             assertDoesNotThrow(() -> addressBook.addContact(testContact2));
         }
     }
+    @Nested
+    @DisplayName("Return All Tests")
+    class returnAllTests {
+        private static AddressBook addressBook = new AddressBook();
+
+        @Test
+        @DisplayName("Check that the returned list of contacts is empty when no contacts are added")
+        void testEmptyGetContact() {
+            // Arrange
+            addressBook = new AddressBook();
+            int expected = 0;
+            // Act
+            // Assert
+            assertEquals(expected, addressBook.getContactList().size());
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts is size 1 when 1 contacts are added")
+        void testOneGetContact() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            addressBook.addContact(testContact1);
+            int expected = 1;
+            // Act
+            // Assert
+            assertEquals(expected, addressBook.getContactList().size());
+        }
+
+        @Test
+        @DisplayName("Check that the returned list of contacts is size 2 when 2 contacts are added")
+        void testTwoGetContact() {
+            // Arrange
+            addressBook = new AddressBook();
+            Contact testContact1 = new Contact("Walter White", "07000000000", "walterwhite@email.com");
+            addressBook.addContact(testContact1);
+            Contact testContact2 = new Contact("Hank Schrader", "07111111111", "hank@police.com");
+            addressBook.addContact(testContact2);
+            int expected = 2;
+            // Act
+            // Assert
+            assertEquals(expected, addressBook.getContactList().size());
+        }
+    }
 }
 
