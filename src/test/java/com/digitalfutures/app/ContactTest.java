@@ -1,4 +1,4 @@
-package com.digitalfutures.application;
+package com.digitalfutures.app;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class ContactTest {
         void testNameSetByConstructor() {
             // Arrange
             String testName = "Test Person";
-            Contact testContact = new Contact(testName, "email@email.com", "07000000000");
+            Contact testContact = new Contact(testName, "07000000000", "email@email.com");
 
             // Act
             String actualName = testContact.getName();

@@ -1,4 +1,6 @@
-package com.digitalfutures.application;
+package com.digitalfutures.app;
+
+import com.digitalfutures.app.Util.DataValidator;
 
 public class Contact {
     public void setName(String name) {
@@ -11,9 +13,9 @@ public class Contact {
         this.email = DataValidator.checkEmail(email);
     }
 
-    protected String name;
-    protected String phoneNumber;
-    protected String email;
+    private String name;
+    private String phoneNumber;
+    private String email;
 
     public String getName() {
         return name;

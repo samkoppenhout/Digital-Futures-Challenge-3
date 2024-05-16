@@ -1,5 +1,6 @@
-package com.digitalfutures.application;
+package com.digitalfutures.app;
 
+import com.digitalfutures.app.Util.DataValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DataValidatorTest {
     @Nested
     @DisplayName("Name Tests")
-    class NameTests {
+    class nameTests {
         @Test
         @DisplayName("Check that an error is not thrown if name is valid")
         void testValidName(){
@@ -18,7 +19,7 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertDoesNotThrow(() -> DataValidator.checkName(testName));
-            };
+        }
         @Test
         @DisplayName("Check that an error is thrown if name is null")
         void testNullName(){
@@ -27,7 +28,7 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertThrows(IllegalArgumentException.class, () -> DataValidator.checkName(testName));
-        };
+        }
     }
 
     @Nested
@@ -41,7 +42,7 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertDoesNotThrow(() -> DataValidator.checkPhoneNumber(testPhoneNumber));
-        };
+        }
         @Test
         @DisplayName("Check that an error is thrown if phone number is null")
         void testNullPhoneNumber(){
@@ -50,7 +51,7 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertThrows(IllegalArgumentException.class, () -> DataValidator.checkPhoneNumber(testPhoneNumber));
-        };
+        }
         @Test
         @DisplayName("Check that an error is thrown if phone number is not in a valid format")
         void testInvalidPhoneNumber(){
@@ -73,7 +74,7 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertDoesNotThrow(() -> DataValidator.checkEmail(testEmail));
-        };
+        }
         @Test
         @DisplayName("Check that an error is thrown if email is null")
         void testNullPhoneNumber(){
@@ -82,7 +83,7 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertThrows(IllegalArgumentException.class, () -> DataValidator.checkEmail(testEmail));
-        };
+        }
         @Test
         @DisplayName("Check that an error is thrown if email is not in a valid format")
         void testInvalidPhoneNumber(){
@@ -91,6 +92,6 @@ public class DataValidatorTest {
             // Act
             // Assert
             assertThrows(IllegalArgumentException.class, () -> DataValidator.checkEmail(testEmail));
-        };
+        }
     }
 }

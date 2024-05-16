@@ -1,4 +1,4 @@
-package com.digitalfutures.application;
+package com.digitalfutures.app.Util;
 
 import java.util.regex.*;
 
@@ -16,28 +16,28 @@ public class DataValidator {
         Matcher matcher = phoneNumberPattern.matcher(removeSpaces(phoneNumber));
         if (matcher.matches()) {
             return removeSpaces(phoneNumber);
-        } else { throw new IllegalArgumentException("Phone Number Invalid"); }
+        } else { throw new IllegalArgumentException("Phone number invalid. "); }
     }
     private static String emailRegex(String email) {
         Matcher matcher = emailPattern.matcher(email);
         if (matcher.matches()) {
             return email;
-        } else { throw new IllegalArgumentException("Email Invalid"); }
+        } else { throw new IllegalArgumentException("Email invalid. "); }
     }
 
-    static String checkName(String name) {
-        if (name != null) {
+    public static String checkName(String name) {
+        if (name != null && !name.isEmpty()) {
             return name;
-        } else {throw new IllegalArgumentException("Name Invalid"); }
+        } else {throw new IllegalArgumentException("Name invalid. "); }
     }
-    static String checkPhoneNumber(String phoneNumber) {
+    public static String checkPhoneNumber(String phoneNumber) {
         if (phoneNumber != null) {
             return phoneNumberRegEx(phoneNumber);
-        } else {throw new IllegalArgumentException("Phone Number Invalid"); }
+        } else {throw new IllegalArgumentException("Phone Number Invalid. "); }
     }
-    static String checkEmail(String email) {
+    public static String checkEmail(String email) {
         if (email != null) {
             return emailRegex(email);
-        } else {throw new IllegalArgumentException("Email Invalid"); }
+        } else {throw new IllegalArgumentException("Email Invalid. "); }
     }
 }

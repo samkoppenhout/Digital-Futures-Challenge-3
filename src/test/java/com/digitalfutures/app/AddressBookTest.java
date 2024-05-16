@@ -1,4 +1,4 @@
-package com.digitalfutures.application;
+package com.digitalfutures.app;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

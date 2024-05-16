@@ -1,21 +1,21 @@
-package com.digitalfutures.application;
+package com.digitalfutures.app;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class AddressBook {
-    private ArrayList<Contact> contactList = new ArrayList<>();
+    private final ArrayList<Contact> contactList = new ArrayList<>();
 
     public ArrayList<Contact> getContactList() {
         return contactList;
     }
 
-    private ArrayList<Contact> searchLoop(String searchTerm) {
-        ArrayList<Contact> searchResults = new ArrayList<>();
+    public ArrayList<Contact> search(String searchTerm) {
+        ArrayList<Contact> search = new ArrayList<>();
         for (Contact contact : contactList) {
-            if (contact.getName().toLowerCase().contains(searchTerm.toLowerCase())) { searchResults.add(contact); }
+            if (contact.getName().toLowerCase().contains(searchTerm.toLowerCase())) { search.add(contact); }
         }
-        return searchResults;
+        return search;
     }
 
     private Contact duplicateCheckLoop(Contact newContact) {
@@ -37,12 +37,6 @@ public class AddressBook {
         if (this.contactList.contains(contact)) {
             this.contactList.remove(contact);
         } else throw new IllegalArgumentException("Contact not in address book.");
-    }
-
-    public ArrayList<Contact> search(String searchTerm) {
-        ArrayList<Contact> result = searchLoop(searchTerm);
-        if (result.isEmpty()) {throw new NoSuchElementException("No matching contact found");}
-        return result;
     }
 
     public void editContact(Contact contact, String name, String phoneNumber, String email) {
