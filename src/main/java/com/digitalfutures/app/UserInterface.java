@@ -14,15 +14,13 @@ public class UserInterface {
         if (contacts.isEmpty()) {
             consoleIO.print("No matching contacts found!\n");} else {
             int i = 1;
-            for (Contact contact : contacts) {
-                consoleIO.print(String.format("%d: Name: '%s', Phone Number: '%s', Email: '%s'\n",i++, contact.getName(), contact.getPhoneNumber(), contact.getEmail()));
-            }
+            for (Contact contact : contacts) { consoleIO.print(String.format("%d: Name: '%s', Phone Number: '%s', Email: '%s'\n",i++, contact.getName(), contact.getPhoneNumber(), contact.getEmail()));}
         }
         return contacts;
     }
 
     private ArrayList<Contact> search() {
-        consoleIO.print("Enter search term:\n");
+        consoleIO.print("Showing all contacts:\n");
         String search = consoleIO.takeInput();
         return printContacts(addressBook.search(search));
     }
@@ -38,8 +36,7 @@ public class UserInterface {
             try {
                 DataValidator.checkName(name);
                 return name;
-            } catch (Exception exception) {
-                consoleIO.print(exception.getMessage() + "Re-enter name:\n");}
+            } catch (Exception exception) { consoleIO.print(exception.getMessage() + "Re-enter name:\n");}
         }
     }
 
@@ -61,9 +58,7 @@ public class UserInterface {
             try {
                 DataValidator.checkEmail(email);
                 return email;
-            } catch (Exception exception) {
-                consoleIO.print(exception.getMessage() + "Re-enter email:\n");
-            }
+            } catch (Exception exception) { consoleIO.print(exception.getMessage() + "Re-enter email:\n");}
         }
     }
 
@@ -121,9 +116,7 @@ public class UserInterface {
                     addressBook.removeContact(result);
                     consoleIO.print(String.format("Removed contact %d.\n", optionNo));
                     return;
-                } catch (Exception exception) {
-                    consoleIO.print("Contact not identified.\n");
-                }
+                } catch (Exception exception) {consoleIO.print("Contact not identified.\n");}
             }
         }
     }
@@ -143,9 +136,7 @@ public class UserInterface {
                     Contact result = results.get(optionNo - 1);
                     editContact(result);
                     return;
-                } catch (Exception exception) {
-                    consoleIO.print("Contact not identified.\n");
-                }
+                } catch (Exception exception) {consoleIO.print("Contact not identified.\n");}
             }
         }
     }
@@ -159,8 +150,7 @@ public class UserInterface {
             try {
                 contact.setName(DataValidator.checkName(name));
                 break;
-            } catch (Exception exception) {
-                consoleIO.print(exception.getMessage() + "Re-enter name:\n");}
+            } catch (Exception exception) {consoleIO.print(exception.getMessage() + "Re-enter name:\n");}
         }
     }
 
@@ -173,8 +163,7 @@ public class UserInterface {
             try {
                 contact.setPhoneNumber(DataValidator.checkPhoneNumber(phoneNumber));
                 break;
-            } catch (Exception exception) {
-                consoleIO.print(exception.getMessage() + "Re-enter phone number:\n");}
+            } catch (Exception exception) {consoleIO.print(exception.getMessage() + "Re-enter phone number:\n");}
         }
     }
 
@@ -187,8 +176,7 @@ public class UserInterface {
             try {
                 contact.setEmail(DataValidator.checkEmail(email));
                 break;
-            } catch (Exception exception) {
-                consoleIO.print(exception.getMessage() + "Re-enter email:\n");}
+            } catch (Exception exception) {consoleIO.print(exception.getMessage() + "Re-enter email:\n");}
         }
     }
 
