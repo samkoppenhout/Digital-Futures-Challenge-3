@@ -15,7 +15,7 @@ public class UserInterface {
             consoleIO.print("No matching contacts found!\n");} else {
             int i = 1;
             for (Contact contact : contacts) {
-                consoleIO.print("%d: Name: '%s', Phone Number: '%s', Email: '%s'\n",i++, contact.getName(), contact.getPhoneNumber(), contact.getEmail());
+                consoleIO.print(String.format("%d: Name: '%s', Phone Number: '%s', Email: '%s'\n",i++, contact.getName(), contact.getPhoneNumber(), contact.getEmail()));
             }
         }
         return contacts;
@@ -76,7 +76,7 @@ public class UserInterface {
             confirm:
             while (true) {
                 consoleIO.print("Is the following entry correct?\n");
-                consoleIO.print("Name: '%s', Phone Number: '%s', Email: '%s'\n", name, phoneNumber, email);
+                consoleIO.print(String.format("Name: '%s', Phone Number: '%s', Email: '%s'\n", name, phoneNumber, email));
                 consoleIO.print("1: Yes\n2: Retry\n3: Abort\n");
                 String response = consoleIO.takeInput();
                 switch (response.toLowerCase()) {
@@ -119,7 +119,7 @@ public class UserInterface {
                     int optionNo = Integer.parseInt(option);
                     Contact result = results.get(optionNo - 1);
                     addressBook.removeContact(result);
-                    consoleIO.print("Removed contact %d.\n", optionNo);
+                    consoleIO.print(String.format("Removed contact %d.\n", optionNo));
                     return;
                 } catch (Exception exception) {
                     consoleIO.print("Contact not identified.\n");
@@ -152,7 +152,7 @@ public class UserInterface {
 
     private void editName(Contact contact) {
         while (true) {
-            consoleIO.print("Current name: %s\n", contact.getName());
+            consoleIO.print(String.format("Current name: %s\n", contact.getName()));
             consoleIO.print("Enter new name. Leave blank to leave the current name.\n");
             String name = consoleIO.takeInput();
             if (name.isEmpty()) {break;}
@@ -166,7 +166,7 @@ public class UserInterface {
 
     private void editPhoneNumber(Contact contact) {
         while (true) {
-            consoleIO.print("Current phone number: %s\n", contact.getPhoneNumber());
+            consoleIO.print(String.format("Current phone number: %s\n", contact.getPhoneNumber()));
             consoleIO.print("Enter new phone number. Leave blank to leave the current phone number.\n");
             String phoneNumber = consoleIO.takeInput();
             if (phoneNumber.isEmpty()) {break;}
@@ -180,7 +180,7 @@ public class UserInterface {
 
     private void editEmail(Contact contact) {
         while (true) {
-            consoleIO.print("Current email: %s\n", contact.getEmail());
+            consoleIO.print(String.format("Current email: %s\n", contact.getEmail()));
             consoleIO.print("Enter new email. Leave blank to leave the current email.\n");
             String email = consoleIO.takeInput();
             if (email.isEmpty()) {break;}

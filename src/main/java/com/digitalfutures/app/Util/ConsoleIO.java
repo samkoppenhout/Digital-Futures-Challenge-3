@@ -11,8 +11,4 @@ public class ConsoleIO {
     public void print(String string) {
         System.out.printf(string);
     }
-
-    public void print(String string, Object... args) {
-        System.out.printf(string, args);
-    }
 }
