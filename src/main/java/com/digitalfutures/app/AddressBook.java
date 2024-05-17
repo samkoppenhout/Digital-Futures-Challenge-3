@@ -1,7 +1,8 @@
 package com.digitalfutures.app;
 
+import com.digitalfutures.app.Util.DuplicateException;
+
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class AddressBook {
     private final ArrayList<Contact> contactList = new ArrayList<>();
@@ -18,9 +19,9 @@ public class AddressBook {
         return search;
     }
 
-    private Contact duplicateCheckLoop(Contact newContact) {
+    private Contact duplicateCheckLoop(Contact newContact) throws DuplicateException {
         for (Contact contact :contactList) {
-            if (duplicateCheck(contact, newContact)) {throw new IllegalArgumentException("Contact is already in address book");}
+            if (duplicateCheck(contact, newContact)) {throw new DuplicateException("Contact is already in address book.");}
         }
         return newContact;
     }
@@ -29,7 +30,7 @@ public class AddressBook {
         return contact.getEmail().equals(newContact.getEmail()) || contact.getPhoneNumber().equals(newContact.getPhoneNumber());
     }
 
-    public void addContact(Contact contact) {
+    public void addContact(Contact contact) throws DuplicateException{
         this.contactList.add(duplicateCheckLoop(contact));
     }
 

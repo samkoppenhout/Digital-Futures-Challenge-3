@@ -2,6 +2,7 @@ package com.digitalfutures.app;
 
 import com.digitalfutures.app.Util.ConsoleIO;
 import com.digitalfutures.app.Util.DataValidator;
+import com.digitalfutures.app.Util.DuplicateException;
 
 import java.util.ArrayList;
 
@@ -84,8 +85,11 @@ public class UserInterface {
                             Contact contact = new Contact(name, phoneNumber, email);
                             addressBook.addContact(contact);
                             consoleIO.print("Contact added successfully!\n");
+                        } catch (DuplicateException exception) {
+                            consoleIO.print(exception.getMessage() + " Returning to menu.\n");
+                            break entry;
                         } catch (Exception exception) {
-                            consoleIO.print(exception.getMessage() + "Re-enter contact details.\n");
+                            consoleIO.print(exception.getMessage() + " Re-enter contact details.\n");
                             break confirm;
                         }
                         break entry;
@@ -146,7 +150,7 @@ public class UserInterface {
         }
     }
 
-    private void editContact(Contact contact) {
+    private void editName(Contact contact) {
         while (true) {
             consoleIO.print("Current name: %s\n", contact.getName());
             consoleIO.print("Enter new name. Leave blank to leave the current name.\n");
@@ -158,6 +162,9 @@ public class UserInterface {
             } catch (Exception exception) {
                 consoleIO.print(exception.getMessage() + "Re-enter name:\n");}
         }
+    }
+
+    private void editPhoneNumber(Contact contact) {
         while (true) {
             consoleIO.print("Current phone number: %s\n", contact.getPhoneNumber());
             consoleIO.print("Enter new phone number. Leave blank to leave the current phone number.\n");
@@ -169,6 +176,9 @@ public class UserInterface {
             } catch (Exception exception) {
                 consoleIO.print(exception.getMessage() + "Re-enter phone number:\n");}
         }
+    }
+
+    private void editEmail(Contact contact) {
         while (true) {
             consoleIO.print("Current email: %s\n", contact.getEmail());
             consoleIO.print("Enter new email. Leave blank to leave the current email.\n");
@@ -180,11 +190,17 @@ public class UserInterface {
             } catch (Exception exception) {
                 consoleIO.print(exception.getMessage() + "Re-enter email:\n");}
         }
+    }
+
+    private void editContact(Contact contact) {
+        editName(contact);
+        editPhoneNumber(contact);
+        editEmail(contact);
         consoleIO.print("Contact updated!\n");
     }
 
-    public UserInterface(ConsoleIO consoleIO) {
-        addressBook = new AddressBook();
+    public UserInterface(ConsoleIO consoleIO, AddressBook addressBook) {
+        this.addressBook = addressBook;
         this.consoleIO = consoleIO;
     }
 

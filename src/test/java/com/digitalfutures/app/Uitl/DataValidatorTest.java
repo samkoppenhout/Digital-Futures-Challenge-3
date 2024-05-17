@@ -1,4 +1,4 @@
-package com.digitalfutures.app;
+package com.digitalfutures.app.Uitl;
 
 import com.digitalfutures.app.Util.DataValidator;
 import org.junit.jupiter.api.DisplayName;
