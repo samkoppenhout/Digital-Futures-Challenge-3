@@ -27,4 +27,144 @@ Although there are some major development goals in the near future, the software
 [1]https://www.telegraph.co.uk/technology/mobile-phones/9428917/Britons-have-50-contacts-in-mobile-phone-but-have-memorised-just-two-numbers.html
 <hr>
 
-## Domain Models, Class Diagrams and Test Plan
+## Domain Models and Test Plan
+
+### Use of Agile for Project Planning
+
+A kanban board was used to track progress on this project. A screenshot of this has been included, showing an example of a user story written out, with its domain model linked and a 'definition-of-done' included for tracking and project management purposes.
+![Address book kanban board](../images/kanban-board.png)
+### User Stories
+
+#### Core Features
+
+User Story 1:
+
+- As a user,
+- I should be able to add a contact to the address book,
+- So I can store their name, phone number and email address.
+
+User Story 2:
+
+- As a user,
+- I should be able to search for a contact by name and have the results displayed,
+  So I can view the results I require.
+
+User Story 3:
+
+- As a user,
+- I should be able to remove a contact from the address book,
+- So that I can remove unwanted contacts.
+
+User Story 4:
+
+- As a user,
+- I should be able to edit a contact's details,
+- So I can change a contacts details after they have been added.
+
+User Story 5:
+
+- As a user,
+- I should be blocked from adding duplicate phone number or email addresses to the address book,
+- So that I do not add duplicate entries.
+
+User Story 6:
+
+- As a user,
+- I should have the ability to view all of my contacts,
+- So I can see all my contacts at once.
+
+User Story 7:
+
+- As a user,
+- I should be able to interact with this application using a console interface,
+- So I can control the program easily.
+
+### Domain Models
+
+The domain models used for the core features can be seen here:
+![Address book domain models](../images/domain-models.png)
+### Testing
+
+JUnit was used to test this application as it was being developed. Below is a full list of the tests, grouped by class.
+
+#### Contact Tests:
+Contact Constructor Tests:
+- Name is set by constructor
+- Phone number is set by constructor
+- Email is set by constructor
+
+#### AddressBook Tests:
+Add Contact Tests:
+- Test that the number of contacts increases when addContact is called
+- Test that the contacts list includes the given test contact
+
+Remove Contact Tests:
+- Test that the number of contacts decreases when removeContact is called
+- Test that the contacts list does not include the given test contact
+- Test that removeContact() throws an error if contacts list does not contain the given contact
+
+Search By Name Tests:
+- Check that the returned list of contacts includes a contact with the requested term
+- Check the search result is empty if the term does not match any statements
+- Check that the returned list of contacts includes a contact with the requested term if cases are different
+- Check that the returned list of contacts is size 2 if 2 results are expected
+
+Edit Contact Tests:
+- Check that the returned list of contacts does not include the original contact after editing
+- Check that the returned list of contacts does include the new contact after editing
+
+Duplicate Tests:
+- Check that an error is thrown if a duplicate is added
+- Check that an error is thrown if a duplicate phone number is added with different email and name
+- Check that an error is thrown if a duplicate email is added with different phone number and name
+- Check that an error is not thrown if a duplicate name is added with different phone number and email
+- Check that an error is not thrown if two entries are not duplicates
+
+Return All Tests:
+- Check that the returned list of contacts is empty when no contacts are added
+- Check that the returned list of contacts is size 1 when 1 contacts are added
+- Check that the returned list of contacts is size 2 when 2 contacts are added
+
+#### DataValidator Tests:
+Name Tests:
+- Check that an error is not thrown if name is valid
+- Check that an error is thrown if name is null
+
+Phone Number Tests:
+- Check that an error is not thrown if phone number is valid
+- Check that an error is thrown if phone number is null
+- Check that an error is thrown if phone number is not in a valid format
+
+Email Tests:
+- Check that an error is not thrown if email is valid
+- Check that an error is thrown if email is null
+- Check that an error is thrown if email is not in a valid format
+
+#### UserInterface Tests:
+
+Start:
+- Check that the menu is printed on startup, and closes on an input of 6
+
+Add Contact Tests:
+- Check that a contact is added successfully when the details are correct<br>
+- Check that an email error message is sent if an incorrect email is entered<br>
+- Check that a phone number error message is sent if an incorrect phone number is entered <br>
+- Check that a duplicate contact cannot be added
+
+Search by name tests:
+- Test that a contact which has been added can be found in a search<br>
+- Test that the search only shows relevant results
+
+Show all contacts tests:
+- Test that option 2 starts show all contacts<br>
+- Test that option 2 shows a contact when one is added<br>
+- Test that option 2 shows both contacts when two are added<br>
+- Test that option 2 shows both contacts in order when two are added
+
+Remove contact tests:
+- Test that a contact which has been added can be removed
+- Test that a contact which does not exist cannot be removed
+
+Edit contact tests:
+- Test that a contact which has been added can be edited
+- Test that invalid data is not accepted
